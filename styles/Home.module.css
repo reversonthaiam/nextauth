@@ -1,5 +1,11 @@
 .container {
   padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #0070f3;
+  flex-direction: column;
 }
 
 .main {
