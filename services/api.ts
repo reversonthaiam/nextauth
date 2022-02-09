@@ -15,8 +15,11 @@ api.interceptors.response.use(
     return response
   },
   (error: AxiosError) => {
-    if (error.response.data === 401) {
+    
+    if (error.response.status === 401) {
+        
       if (error.response.data?.code === 'token.expired') {
+        
         //renovar o token
         cookies = parseCookies()
         const { 'nextauth.refreshtoken': refreshToken } = cookies
@@ -39,7 +42,7 @@ api.interceptors.response.use(
             })
 
             api.defaults.headers['Authorization'] = `Bearer ${token}`
-            
+
           })
       } else {
         //deslogar usuario
