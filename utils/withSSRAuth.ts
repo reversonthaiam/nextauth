@@ -26,8 +26,9 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>): GetServerSideProps {
     try {
       return await fn(ctx)
     } catch (err) {
-
+      console.log(err)
       if(err instanceof AuthTokenError) {
+        console.log('entrou')
         destroyCookie(ctx, 'nextauth.token')
         destroyCookie(ctx, 'nextauth.refreshToken')
         
@@ -38,6 +39,12 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>): GetServerSideProps {
           }
         }
       }
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
     }
   }
 }
